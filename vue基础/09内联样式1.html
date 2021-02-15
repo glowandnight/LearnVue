@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内联样式</title>
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div style='width: 100px;height: 100px;background: skyblue;'></div>
+        <!-- CSS内联样式变量拼接 -->
+        <div style='width: 100px;height: 100px;background: skyblue;' 
+            :style="{border: borderWidth+ 'px solid red',padding: paddingWidth + 'px'}"></div>
+        <!-- CSS内联样式直接放置对象 -->
+        <div :style='styleObj'></div>
+        <!-- CSS内联样式数组的方式拼接 -->
+        <div :style='styleArr'></div>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data:{
+                borderWidth:50,
+                paddingWidth:30,
+                styleObj:{
+                    width:'100px',
+                    height:'200px',
+                    'background-color':'orange'
+                },
+                styleArr:[
+                    {
+                        width:'200px',
+                        height:'300px',
+                        padding:'50px',
+                        'background-color':'purple'
+                    },
+                    {
+                        border:'5px solid yellow'
+                    }
+                ]
+            }
+        })
+    </script>
+</body>
+</html>

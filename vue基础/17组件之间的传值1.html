@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件之间的传值：父组件传值给子组件</title>
+    <script src="/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- 从根组件传值到子组件（产品组件），需要绑定product为item -->
+            <product-com v-for="item,index in proList" :product="item"></product-com>
+        </ul>
+    </div>
+
+    <script>
+        // 产品组件
+        Vue.component("product-com", {
+            // 通过props将父组件的值传进子组件，这里是根组件传入产品组件
+            // props告知product.title等数据是父组件传进来的值而不是组件内data的值
+            props:['product'],
+            template: `<li>
+                           <h3>产品名称：{{product.title}}</h3>
+                           <h4>产品描述：{{product.brief}}</h4>
+                           <p>产品价格：{{product.price}}</p>
+                       </li>`,
+            
+        })
+
+        // 根组件
+        let app = new Vue({
+            el: "#app",
+            data: {
+                proList: [
+                    {
+                        title: "产品1",
+                        price: "10",
+                        brief: "产品描述1"
+                    },
+                    {
+                        title: "产品2",
+                        price: "20",
+                        brief: "产品描述2"
+                    },
+                    {
+                        title: "产品3",
+                        price: "30",
+                        brief: "产品描述3"
+                    },
+                    {
+                        title: "产品4",
+                        price: "40",
+                        brief: "产品描述4"
+                    },
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

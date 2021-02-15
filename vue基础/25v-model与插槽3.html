@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-model与插槽：插槽</title>
+    <script src="/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <alert-com :html='content'></alert-com>
+        <!-- slot（插槽）里面的内容变量只跟父组件有关 -->
+        <alert-com1>
+            <p>小心,{{content}}</p>
+        </alert-com1>
+    </div>
+
+    <script>
+        Vue.component("alert-com", {
+            props: ['html'],
+            template: `<div class="alert">
+            <h1>温馨提示</h1>
+            <div class="content">
+                {{html}}
+            </div>
+            </div>`
+        });
+
+        Vue.component("alert-com1", {
+            template: `<div class="alert">
+            <h1>温馨提示</h1>
+            <div class="content">
+                <slot></slot>
+            </div>
+            </div>`,
+            
+        });
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                content: "小心熊出没"
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习：tab切换</title>
+    <script src="/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h3 v-show="tab==1">首页</h3>
+        <h3 v-show="tab==2">新闻页</h3>
+        <h3 v-show="tab==3">个人中心</h3>
+
+        <button @click='tabChange' data-id='1'>首页</button>
+        <button @click='tabChange' data-id="2">新闻</button>
+        <button @click='tabChange' data-id="3">个人</button>
+    </div>
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                tab: 1
+            },
+            methods: {
+                tabChange: function (e) {
+                    console.log(e);
+                    let tabid = e.target.dataset.id;
+                    this.tab = tabid;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

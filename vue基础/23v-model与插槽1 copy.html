@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-model与插槽：v-model的原理</title>
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="username" value="">
+        <input type="text" @input="username = $event.target.value" :value="username">
+        <h3>{{username}}</h3>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el:"#app",
+            data:{
+                username:""
+            }
+        })
+    </script>
+</body>
+</html>

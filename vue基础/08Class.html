@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class与Style绑定</title>
+    <script src="/js/vue.js"></script>
+    <style>
+        .page {
+            width: 200px;
+            height: 200px;
+        }
+
+        .active {
+            background: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <div class="page"></div> -->
+        <!-- 通过对象的方式决定是否存在某个类 -->
+        <div class="page" :class='{active:isTrue}'></div>
+        <!-- 直接放置对象 -->
+        <div class="page" :class='styleObj'></div>
+        <!-- 放置数组 -->
+        <div class="page" :class='styleArr'></div>
+        <!-- 放置字符串 -->
+        <div class="page" :class='styleStr'></div>
+        <!-- 数组和对象混合使用 -->
+        <div class="page" :class='styleArrObj'></div>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                isTrue: true,
+                styleObj: { active: true, laochen: true },
+                // 直接用数组的方式进行添加和删除
+                styleArr: ['col-xs-12', 'red-bg'],
+                styleStr: 'abc',
+                styleArrObj: ['abc', { active: true }]
+            }
+        })
+    </script>
+</body>
+
+</html>

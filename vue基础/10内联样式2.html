@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面滑动效果（:class）</title>
+    <script src="/js/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .page {
+            width: 100vw;
+            height: 100vh;
+            background-color: #efefef;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .rMenu {
+            height: 100vh;
+            width: 50vw;
+            background-color: yellow;
+            position: fixed;
+            left: 0;
+            top: 0;
+            transform: translateX(100vw);
+            transition: transform 0.5s;
+        }
+
+        .active {
+            transform: translateX(50vw);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="page">
+            首页
+            <button @click='toggleMenu'>切换侧边栏</button>
+        </div>
+        <div class="rMenu" :class='{active:isShow}'>
+            侧边栏
+        </div>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                isShow: false
+            },
+            methods: {
+                toggleMenu: function () {
+                    this.isShow = !this.isShow;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

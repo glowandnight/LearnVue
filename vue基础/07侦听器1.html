@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>侦听器</title>
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>{{msg}}</h1>
+        <ul>
+            <li v-for='item in arr'>{{item}}</li>
+        </ul>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data:{
+                msg:'helloVue',
+                arr:['A','B','C']
+            },
+            // 侦听器
+            watch:{
+                msg:function(val){
+                    console.log('侦听事件----msg');
+                    console.log(val);
+                },
+                arr:function(val){
+                    console.log('侦听事件----arr');
+                    console.log(val);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

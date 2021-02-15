@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性</title>
+    <script src="/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 一般情况下的写法 -->
+        <h1>{{firstname+lastname}}</h1>
+        <!-- 计算属性写法 -->
+        <h1>{{fullname}}</h1>
+        <!-- 逆序显示一个单词 -->
+        <!-- 一般情况下的写法 -->
+        <h1>{{word.split('').reverse().join("")}}</h1>
+        <!-- 计算属性写法 -->
+        <h1>{{reverseWord}}</h1>
+        <h1>循环偶数年龄</h1>
+        <ul>
+            <li v-for='item,index in oddStudents'>
+                <h3>{{item.studentName}}</h3>
+                <h4>{{item.age}}----{{item.school}}</h4>
+            </li>
+        </ul>
+
+        <h1>{{msg}}</h1>
+        <h1>{{reverseMsg}}</h1>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'helloVue',
+                firstname: '张',
+                lastname: '三',
+                word: 'music',
+                students: [
+                    {
+                        studentName: 'AAA',
+                        age: 16,
+                        school: 'BBB'
+                    },
+                    {
+                        studentName: 'BBB',
+                        age: 17,
+                        school: 'CCC'
+                    },
+                    {
+                        studentName: 'DDD',
+                        age: 18,
+                        school: 'EEE'
+                    },
+                    {
+                        studentName: 'DDD',
+                        age: 15,
+                        school: 'EEE'
+                    }
+                ]
+            },
+            computed: {
+                fullname: function () {
+                    // 会将计算的结果进行缓存，只要this.firstname和this.lastname变量的内容不改变，就不会改变
+                    return this.firstname + this.lastname;
+                },
+                reverseWord: function () {
+                    return this.word.split('').reverse().join('');
+                },
+                oddStudents: function () {
+                    let result = this.students.filter((item, index) => {
+                        return item.age % 2 == 0;
+                    })
+                    return result
+                },
+                reverseMsg: {
+                    get:function(){
+                        return this.msg.split('').reverse().join('');
+                    },
+                    // 计算属性的setter
+                    // reverseMsg将msg的值也修改掉
+                    set:function(val){
+                        console.log(val);
+                        this.msg = val.split('').reverse().join('');
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

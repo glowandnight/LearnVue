@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染：v-if、v-else、v-else-if</title>
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+    <!-- 视图view -->
+    <div id="app">
+        {{message}}
+        <h1>用户名：{{username}}</h1>
+        <h3 v-if = 'isVip'>用户类型：VIP</h3>
+        <h3 v-else>用户类型：普通用户</h3>
+        <hr>
+        <h1>用户允许登录时间</h1>
+        <h3 v-if = 'age>18'>允许24小时登录</h3>
+        <h3 v-else-if = 'age>14'>允许8小时登录</h3>
+        <h3 v-else>允许4小时登录</h3>
+    </div>
+
+    <script>
+        console.log(Vue);
+
+        let app = new Vue({
+            el: '#app',
+            // 模型model
+            data: {
+                message: 'hello vue',
+                username: 'ABX',
+                isVip: false,
+                age: 15
+            }
+        })
+    </script>
+</body>
+</html>

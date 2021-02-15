@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件之间的传值：传方法（通过$parent属性）</title>
+    <script src="/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <school v-for="item,index in schoolList" :key="'abc'+index" :index="index"
+                :school-name="item"></school>
+        </ul>
+
+        <h2>选择的学校是：{{chooseSchool}}</h2>
+    </div>
+
+    <script>
+        Vue.component("school", {
+            props: ['schoolName', 'index','action'],
+            template: `<li>
+                    <h3>{{index}}--学校名称：{{schoolName}}</h3>
+                    <button @click="chooseEvent(schoolName)">选择学校</button>
+                </li>`,
+            methods: {
+                chooseEvent: function (schoolName) {
+                    console.log(schoolName);
+                    // 组件可以通过$parent属性找到父组件
+                    this.$parent.changeEvent(schoolName);
+                }
+            }
+        })
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                schoolList: ["清华", "北大", "浙大", "中大"],
+                chooseSchool: ""
+            },
+            methods: {
+                changeEvent: function (data) {
+                    console.log("触发学校选择事件");
+                    this.chooseSchool = data;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

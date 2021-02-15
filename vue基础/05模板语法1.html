@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板语法：v-once</title>
+    <script src="/js/vue.js"></script>
+    <style>
+        #login{
+            background: skyblue;
+        }
+        #register{
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{msg}}</h1>
+        <!-- 一次性插入，不再修改 -->
+        <h1 v-once>{{msg}}</h1>
+        <h1>{{htmlTxt}}</h1>
+        <h1 v-html='htmlTxt'></h1>
+        <!-- 修改属性内容 -->
+        <!-- 绑定动态属性，不省略的写法是v-bind:，省略写法只写一个: -->
+        <div :id='idname'>
+            <h1>登录</h1>
+        </div>
+        <!-- 模板语言的表达式应用 -->
+        <div>
+            {{firstname + lastname}}
+        </div>
+        <!-- 三元运算符 -->
+        <div>
+            {{isVip?"欢迎VIP用户":"欢迎普通用户"}}
+        </div>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data:{
+                msg:'HelloVue',
+                htmlTxt:'<span>hello</span>',
+                idname:'login',
+                firstname:'张',
+                lastname:'三',
+                isVip:true
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件绑定</title>
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>点击次数：{{count}}</h1>
+        <!-- 使用表达式 -->
+        <button @click='count+=1'>点击</button>
+        <!-- 获取事件对象 -->
+        <button @click='clickEvent'>点击2</button>
+
+        <!-- 事件传参 -->
+        <ul>
+            <li v-for='item,index in stars' @click='clickEvent1(index,item,$event)'>索引值：{{index}}-----内容：{{item}}</li>
+        </ul>
+
+        <!-- 事件修饰符 -->
+        <!-- .stop修饰符，阻止冒泡向上传递 -->
+        <div class="btnParent" @click='clickParent'>
+            <button @click.stop='clickEvent2'>按钮</button>
+        </div>
+        <!-- .prevent修饰符，阻止默认事件 -->
+        <form action="" method="POST">
+            <!-- 绑定输入框回车事件 -->
+            <input type="text" @keydown.enter='searchWeather' name="username" v-model='city' id="" value="">
+            <input @click.prevent='searchWeather' type="submit" value="提交">
+        </form>
+        <div id="weather">
+            <h1>{{tmp}}</h1>
+            <h3>{{brief}}</h3>
+        </div>
+        <!-- .once修饰符，只触发一次 -->
+        <button @click.once='onceEvent'>只触发一次</button>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data:{
+                count:0,
+                stars:['ABC','BCD','CDE'],
+                city:'广州',
+                tmp:'',
+                brief:''
+            },
+            methods:{
+                clickEvent:function(event){
+                    console.log(event);
+                    console.log(this);
+                    this.count++;
+                },
+                clickEvent1:function(index,item,event){
+                    console.log(index);
+                    console.log(item);
+                    console.log(event);
+                },
+                clickEvent2:function(e){
+                    console.log('clickEvent2');
+                },
+                clickParent:function(){
+                    console.log('clickParent');
+                },
+                searchWeather:async function(){
+                    console.log('查询天气');
+                    console.log(this.city);
+                    let httpUrl = `https://free-api.qweather.com/s6/weather/now?location=${this.city}&key=3030f7e91ad6464ebeb9941f593a6bf9`;
+                    let res = await fetch(httpUrl);
+                    let result = await res.json();
+                    console.log(result);
+                    let now = result.HeWeather6[0].now;
+                    this.tmp = now.tmp;
+                    this.brief = now.cond_txt;
+                },
+                onceEvent:function(){
+                    console.log('只触发一次');
+                }
+            }
+        })
+    </script>
+</body>
+</html>

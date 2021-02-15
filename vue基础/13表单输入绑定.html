@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单输入绑定：v-model</title>
+    <!-- v-model监听用户的输入事件以更新数据 -->
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 数据的双向绑定 -->
+        <input type="text" name="username" id="" v-model.lazy.trim='username' value="">
+        <p>{{username}}</p>
+        <textarea name="" id="" cols="30" rows="10" v-model='username'></textarea>
+        <br>
+
+        <span v-for='item in fruits'>
+            {{item}}
+            <input type="checkbox" name="fruits" v-model='checkFruit' :value="item">
+        </span>
+        <h2>{{checkFruit}}</h2>
+
+        <span v-for='item in fruits'>
+            {{item}}
+            <input type="radio" name="zfruits" v-model='radioFruit' :value="item">
+        </span>
+        <h2>{{radioFruit}}</h2>
+
+        <h1>选项框：选择你居住的城市</h1>
+        <select v-model='chooseCity' name="" id="">
+            <!-- 解决ios的bug -->
+            <option disabled value="">请选择</option>
+            <option v-for='item in citys' :value="item">{{item}}</option>
+        </select>
+        <h3>{{chooseCity}}</h3>
+
+        <h1>选项框：选择你居住的城市</h1>
+        <select v-model='moreCity' multiple='multiple' name="" id="">
+            <option v-for='item in citys' :value="item">{{item}}</option>
+        </select>
+        <h3>{{moreCity}}</h3>
+
+        <h1>将字符串变为数字获取</h1>
+        <input type="text" name="age" id="" v-model.number='age' value="">
+    </div>
+
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data:{
+                username:'AAA',
+                fruits:['苹果','雪梨','香蕉','葡萄'],
+                checkFruit:[],
+                radioFruit:'',
+                citys:['北京','上海','深圳','广州'],
+                chooseCity:'',
+                moreCity:[],
+                age:16
+            },
+            watch:{
+                age:function(val){
+                    console.log(val);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-model与插槽：v-model的原理</title>
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input-com :username="username" @child-input="changeEvent"></input-com>
+        <input-com :username="username" @child-input="username=$event"></input-com>
+        <h3>{{username}}</h3>
+    </div>
+
+    <script>
+        Vue.component("input-com",{
+            props:['username'],
+            template:`<input type="text" @input="$emit('child-input',$event.target.value)" :value="username">`,
+            
+        })
+
+        let app = new Vue({
+            el:"#app",
+            data:{
+                username:""
+            },
+            methods:{
+                changeEvent:function(data){
+                    this.username = data;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
